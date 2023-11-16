@@ -8,6 +8,8 @@ function validate(event){
     var validated = true;
     console.log('isValidated [initial] = ', validated);
 
+    const storedAccounts = JSON.parse(localStorage.getItem('Accounts')) || [];
+
     class Account{
 
         constructor(id, name, email, password){
@@ -24,11 +26,6 @@ function validate(event){
         }
     }
 
-    let AccountsMap = new Map();
-
-    AccountsMap.set('Kleaaa', '54321');
-    AccountsMap.set('admin', 'admin');
-
     $("#userNameSpn").html("");
     $("#emailSpn").html("");
     $("#PasswordSpn").html("");
@@ -37,11 +34,15 @@ function validate(event){
         $("#userNameSpn").html("Invalid username, minimum 3 characters");
         validated = false;
     }
-    if(AccountsMap.has(username)){
-        $("#userNameSpn").html("Username already exists");
+
+    //if account already exists in local storage, Login
+    const foundAccount = storedAccounts.find(account => account.username === username);
+    if (foundAccount){
+        
+        $("#userNameSpn").html(`Username already exists, <a href="Login.html">Login</a>`);
         validated = false;
     }
-
+   
     function validateEmail(email) {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return re.test(email);
