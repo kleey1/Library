@@ -1,9 +1,14 @@
-function validate(){
+function validate(event){
 
-    preventDefault();
+    event.preventDefault();
 
+    const username = $("#userName").val();
+    const email = $("#email").val();
+    const password = $("#Password").val();
     var validated = true;
     console.log('isValidated [initial] = ', validated);
+
+    const storedAccounts = JSON.parse(localStorage.getItem('Accounts')) || [];
 
     class Account{
 
@@ -11,7 +16,7 @@ function validate(){
 
             if(arguments.length != 4)
             {
-                throw new Error("Please, provide 3 properties")
+                throw new Error("Please, provide 4 properties")
             }
     
             this.id = id;
@@ -21,26 +26,23 @@ function validate(){
         }
     }
 
-    let AccountsMap = new Map();
-
-    AccountsMap.set('Kleaaa', '54321');
-    AccountsMap.set('admin', 'admin');
-
     $("#userNameSpn").html("");
     $("#emailSpn").html("");
     $("#PasswordSpn").html("");
 
-    const username = $("#userName").val();
     if(username.length < 3){
         $("#userNameSpn").html("Invalid username, minimum 3 characters");
         validated = false;
     }
-    if(AccountsMap.has(username)){
-        $("#userNameSpn").html("Username already exists");
+
+    //if account already exists in local storage, Login
+    const foundAccount = storedAccounts.find(account => account.username === username);
+    if (foundAccount){
+        
+        $("#userNameSpn").html(`Username already exists, <a href="Login.html">Login</a>`);
         validated = false;
     }
-
-    const email = $("#email").val();
+   
     function validateEmail(email) {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return re.test(email);
@@ -52,7 +54,6 @@ function validate(){
         validated = false;
     }
 
-    const password = $("#Password").val();
     if(password.length < 5){
         $("#PasswordSpn").html("Invalid password, minimum 5 characters");
         validated = false;
@@ -63,12 +64,8 @@ function validate(){
         return
     }
 
-   /* const Accounts = [
-        new Account(1, 'Kleaaa','klea@gmail.com','54321'),
-        new Account(2, 'admin', 'admin@gmail.com','admin')
-    ];*/
-
     handleSubmit(username, email, password);
+    //window.location.href = 'Main.html';
 
 }
 
@@ -80,12 +77,15 @@ function handleSubmit(Name, Email, Password){
         password: Password
     }
     console.log('newAccount Object = ', newAccount);
-}
+    var existingAccounts = JSON.parse(localStorage.getItem('Accounts')) || [];
+    existingAccounts.push(newAccount);
+    localStorage.setItem('Accounts', JSON.stringify(existingAccounts));
 
+    alert('Account added to localstorage');
+}
+ 
 
 $(document).ready(function(){
-    $("#RegisterBtn").click(function(){
-    validate();
-    window.location.href = 'Main.html';})
+    $("#RegisterBtn").click(validate);
 
 })

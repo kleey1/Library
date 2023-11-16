@@ -1,41 +1,53 @@
-function validate(){
+function validate(event){
 
-    preventDefault();
+  event.preventDefault();
 
-    var validated = true;
-    console.log('isValidated [initial] = ', validated);
+  const username = $("#Username").val();
+  const password = $("#Password").val();
+  var validated = true;
 
-    let AccountsMap = new Map();
+  console.log('isValidated [initial] = ', validated);
 
-    AccountsMap.set('Kleaaa', '54321');
-    AccountsMap.set('admin', 'admin');
+  const storedAccounts = JSON.parse(localStorage.getItem('Accounts')) || [];
 
-    $("#usernameSpn").html("");
-    $("#passwordSpn").html("");
+  if(username.length < 3){
+    $("#usernameSpn").html("Invalid username, minimum 3 characters");
+    validated = false;
+  }
 
-    const username = $("#Username").val();
-    if(username.length < 3){
-        $("#usernameSpn").html("Invalid username, minimum 3 characters");
+  if(password.length < 5){
+    $("#passwordSpn").html("Invalid password, minimum 5 characters");
+    validated = false;
+  }
+    else{
+    const foundAccount = storedAccounts.find(account => account.username === username);
+  
+    if (foundAccount) {
+    // If the username exists, check if the password matches
+        if (foundAccount.password === password) {
+            // Password matches, login successful
+            alert("Logged in");
+            event.preventDefault();
+        } else {
+            // Password does not match
+            $("#passwordSpn").html("Incorrect password");
+            event.preventDefault();
+            validated = false;
+    }
+    } else {
+        // Username does not exist
+        $("#usernameSpn").html("This username does not have an account");
+        event.preventDefault();
         validated = false;
     }
-
-    const password = $("#Password").val();
-    if(password.length < 5){
-        $("#passwordSpn").html("Invalid password, minimum 5 characters");
-        validated = false;
-    }
-    else if(AccountsMap.get(username) == password){
-    }else{
-        $("#passwordSpn").html("Incorrect password");
-        validated = false;
-    }
-
-    if(validated == false)
-    {
-        return
-    }
-
-    handleSubmit(username, password);
+  }
+  if(validated == false)
+  {
+    return
+  }
+    
+  handleSubmit(username, password);
+  window.location.href = 'Main.html';
 }
 
 
@@ -47,12 +59,12 @@ function handleSubmit(Name, Password){
     }
 
     console.log('newLogin Object = ', newLogin);
+
 }
 
 
 $(document).ready(function(){
-    $("#LoginBtn").click(function(){
-    validate();
-    window.location.href = 'Main.html';})
+    $("#LoginBtn").click(validate);
 
 })
+
