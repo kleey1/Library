@@ -1,8 +1,13 @@
 function validate(event){
 
-    event.preventDefault();
+  event.preventDefault();
 
-    var validated = true;
+  const username = $("#Username").val();
+  const password = $("#Password").val();
+  var validated = true;
+
+  //var entriesJSON = localStorage.getItem('Accounts');
+
     console.log('isValidated [initial] = ', validated);
 
     let AccountsMap = new Map();
@@ -13,19 +18,20 @@ function validate(event){
     $("#usernameSpn").html("");
     $("#passwordSpn").html("");
 
-    const username = $("#Username").val();
     if(username.length < 3){
         $("#usernameSpn").html("Invalid username, minimum 3 characters");
         validated = false;
     }
 
-    const password = $("#Password").val();
     if(password.length < 5){
         $("#passwordSpn").html("Invalid password, minimum 5 characters");
         validated = false;
     }
-    else if(AccountsMap.get(username) == password){
-    }else{
+    else if(AccountsMap.get(username) == null){
+        $("#usernameSpn").html("This username does not have an account");
+        validated = false;
+    }
+    else if(AccountsMap.get(username) != password){
         $("#passwordSpn").html("Incorrect password");
         validated = false;
     }
@@ -34,7 +40,6 @@ function validate(event){
     {
         return
     }
-
     handleSubmit(username, password);
     window.location.href = 'Main.html';
 }
@@ -48,6 +53,7 @@ function handleSubmit(Name, Password){
     }
 
     console.log('newLogin Object = ', newLogin);
+
 }
 
 
@@ -55,3 +61,4 @@ $(document).ready(function(){
     $("#LoginBtn").click(validate);
 
 })
+
