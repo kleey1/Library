@@ -5,39 +5,220 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library</title>
     <link type="text/css" rel="stylesheet" href="\assets\styles\Library.css">
+    <style>
+        body {
+            margin: 25px;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden; /* Prevents horizontal scrollbar due to background image */
+        }
+
+        .background-container {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: -1;
+            background-image: url('assets/images/Pic.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: right;
+        }
+
+        nav {
+            color: white;
+            margin-right: 10px;
+            margin-left: 10px;
+            margin-top: 10px;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #6e4530c1;
+            color: rgb(255, 106, 106);
+            z-index: 1; /* Ensure the nav is above the background image */
+        }
+        #ordersTbl th {
+            color: rgb(198, 67, 67);
+        }
+        #ordersTbl td {
+            background-color: rgba(164, 145, 96, 0.847);
+            color: rgb(255, 240, 240);
+        }
+        table#ordersTbl{
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        nav {
+            background-color: #6e4530c1;
+            color: rgb(255, 106, 106);
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        nav img {
+            width: 150px;
+            height: 80px;
+        }
+
+        ul {
+            list-style-type: none;
+            display: flex;
+        }
+
+        li {
+            margin:  15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            
+        }
+
+        th, td {
+            border: 2px solid #672121;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #333;
+            color: rgb(59, 18, 18);
+        }
+
+        #editBtn, #removeBtn {
+            background-color: #4CAF50;
+            color: rgb(15, 158, 151);
+            padding: 5px 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        #addBtn {
+            margin: 40px; 
+            background-color: #00ba3e;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+    </style>
 </head>
-    <body>
-        <nav> 
-            <img src="\assets\images\Screenshot 2023-11-11 174200.png" >
-            <ul>
-                <li><a href="Main.html">Home</a></li>
-                <li><a href="Library.html">Library</a></li>
-                <li><a href="Register.html">Register</a></li>
-            </ul>
-        </nav>
+<body>
+   
+    <div class="background-container"></div>
+    <nav> 
+        <img src="\assets\images\Screenshot 2023-11-11 174200.png" >
+        <ul>
+            <li><a href="Main.html">Home</a></li>
+            <li><a href="Library.html">Library</a></li>
+            <li><a href="Register.html">Register</a></li>
+        </ul>
+    </nav>
 
-        <table id="ordersTbl">
-            <thead>
-                <tr>
-                    <th>Full Name</th>
-                    <th>Email</th>
-                    <th>Description</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>First Last</td>
-                    <td>first@last.com</td>
-                    <td>Porosia pershkrimi</td>
-                    <td>
-                        <button id="editBtn">Edit</button>
-                        <button id="removeBtn">Remove</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <table id="ordersTbl">
+        <thead>
+            <tr>
+                <th>Book Name</th>
+                <th>Author</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- The table body is initially empty -->
+        </tbody>
+    </table>
 
+    <!-- Button to add more books -->
+    <button id="addBtn">Add Book</button>
 
-    </body>
+    <script type="module">
+        // Function to add a new row to the table
+        function addBookRow() {
+            var table = document.getElementById("ordersTbl").getElementsByTagName('tbody')[0];
+            var newRow = table.insertRow(table.rows.length);
+    
+            var cell1 = newRow.insertCell(0);
+            var cell2 = newRow.insertCell(1);
+            var cell3 = newRow.insertCell(2);
+            var cell4 = newRow.insertCell(3);
+    
+            var bookName = prompt("Enter the book name:");
+            var author = prompt("Enter the author:");
+            var description = prompt("Enter the description:");
+    
+            cell1.innerHTML = bookName || "New Book";
+            cell2.innerHTML = author || "New Author";
+            cell3.innerHTML = description || "New Description";
+    
+            /*var editBtn = document.createElement("button");
+            editBtn.innerHTML = "Edit";
+            editBtn.classList.add("editBtn");
+            cell4.appendChild(editBtn);*/
+    
+            var removeBtn = document.createElement("button");
+            removeBtn.innerHTML = "Remove";
+            removeBtn.classList.add("removeBtn");
+            cell4.appendChild(removeBtn);
+        }
+    
+        // Event listener for the "Add Book" button
+        document.getElementById("addBtn").addEventListener("click", addBookRow);
+    
+        // Event delegation for dynamically added buttons
+        document.getElementById("ordersTbl").addEventListener("click", function (event) {
+            var target = event.target;
+    
+            // Check if the clicked element is an "Edit" button
+           /* if (target.classList.contains("editBtn")) {
+                // Get the index of the clicked button's cell
+                var columnIndex = target.parentElement.cellIndex;
+    
+                // Ask the user which information to change
+                var changeType = prompt("Enter 'book' to change the book name, 'author' to change the author, or 'description' to change the description:");
+    
+                if (changeType !== null) {
+                    var newContent = prompt("Enter the new content:");
+    
+                    if (newContent !== null) {
+                        switch (changeType.toLowerCase()) {
+                            case 'book':
+                                target.closest('tr').cells[0].innerHTML = newContent;
+                                break;
+                            case 'author':
+                                target.closest('tr').cells[1].innerHTML = newContent;
+                                break;
+                            case 'description':
+                                target.closest('tr').cells[2].innerHTML = newContent;
+                                break;
+                            default:
+                                alert("Invalid input. Please enter 'book', 'author', or 'description'.");
+                        }
+                    }
+                }
+            }*/
+    
+            // Check if the clicked element is a "Remove" button
+            if (target.classList.contains("removeBtn")) {
+                // Add functionality to remove the book
+                // For example, you can remove the entire row
+                target.closest('tr').remove();
+            }
+        });
+    </script>
+    
+    
+</body>
 </html>
