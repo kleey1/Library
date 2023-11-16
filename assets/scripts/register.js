@@ -1,6 +1,6 @@
-function validate(){
+function validate(event){
 
-    preventDefault();
+    event.preventDefault();
 
     var validated = true;
     console.log('isValidated [initial] = ', validated);
@@ -69,6 +69,7 @@ function validate(){
     ];*/
 
     handleSubmit(username, email, password);
+    window.location.href = 'Main.html';
 
 }
 
@@ -81,11 +82,9 @@ function handleSubmit(Name, Email, Password){
     }
     console.log('newAccount Object = ', newAccount);
 }
-
+ 
 
 $(document).ready(function(){
-    $("#RegisterBtn").click(function(){
-    validate();
-    window.location.href = 'Main.html';})
+    $("#LoginBtn").click(validate);
 
 })

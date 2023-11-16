@@ -1,6 +1,6 @@
-function validate(){
+function validate(event){
 
-    preventDefault();
+    event.preventDefault();
 
     var validated = true;
     console.log('isValidated [initial] = ', validated);
@@ -36,6 +36,7 @@ function validate(){
     }
 
     handleSubmit(username, password);
+    window.location.href = 'Main.html';
 }
 
 
@@ -51,8 +52,6 @@ function handleSubmit(Name, Password){
 
 
 $(document).ready(function(){
-    $("#LoginBtn").click(function(){
-    validate();
-    window.location.href = 'Main.html';})
+    $("#LoginBtn").click(validate);
 
 })
