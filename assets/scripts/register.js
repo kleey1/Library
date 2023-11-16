@@ -85,6 +85,6 @@ function handleSubmit(Name, Email, Password){
  
 
 $(document).ready(function(){
-    $("#LoginBtn").click(validate);
+    $("#RegisterBtn").click(validate);
 
 })
