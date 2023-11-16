@@ -1,3 +1,6 @@
+
+
+
 class Book{
     constructor(id, image, title, author, category){
 
@@ -59,3 +62,6 @@ $("#booksdiv").on('click', "#AddBtn", function(){
 $("#cancelAddBtn").click(function(){
     $("#addModal").hide();
 });
+
+
+
