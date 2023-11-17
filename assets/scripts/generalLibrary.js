@@ -22,13 +22,32 @@ const books = [
     new Book(6, "/assets/images/book6.jpg", "When Breath Becomes Air", "Paul Kalanithi", "Biography")
 ];
 
+localStorage.removeItem('AllBooks');
+
+function AddBooksToStorage(book){
+    var existingBooks = JSON.parse(localStorage.getItem('AllBooks')) || [];
+    if (!Array.isArray(existingBooks)) {
+        existingBooks = []; // Initialize as an array if it's not one already
+    }
+    existingBooks.push(book);
+    localStorage.setItem('AllBooks', JSON.stringify(existingBooks));
+}
+
+books.forEach(function(book) {
+    AddBooksToStorage(book);
+    console.log(`Added book to General = ${book.title}`);
+});
+
 
 const booksDiv = $("#booksdiv");
+var existingBooks = JSON.parse(localStorage.getItem('AllBooks')) || [];
 
 function populateBooks(){
-    $.each(books, function(index, book){
+    $.each(existingBooks, function(index, book){
 
         console.log(`Index = ${index}. Book = ${book}`);
+
+        //AddBooksToStorage(book);
         
         const newDivHtml = `<div class="parent">
         <img id="image" class="child" src=${book.image}>
@@ -47,9 +66,10 @@ function populateBooks(){
 populateBooks();
 
 
+
 $("#booksdiv").on('click', "#AddBtn", function(){
     const bookId = $(this).data('book-id');
-    const book = books.find(n => n.id === bookId);
+    const book = existingBooks.find(n => n.id === bookId);
     // editOrder(order);
 
     console.log(`Selected book = ${book.title}`);
@@ -58,6 +78,30 @@ $("#booksdiv").on('click', "#AddBtn", function(){
 
     $("#addModal").show();
 })
+
+var BooksPersonal = JSON.parse(localStorage.getItem('addedBooks')) || [];
+
+if (!Array.isArray(BooksPersonal)) {
+    BooksPersonal = [];
+}
+
+$("#ConfirmBtn").click(function(){
+    var foundBook = false;
+    var searchTitle = $("#add-book").text();
+
+    existingBooks.forEach(function(book) {
+        if(book.title == searchTitle)
+         foundBook = book;
+    });
+    console.log(`FoundBook = ${foundBook}, ${searchTitle}`);
+    console.log(typeof BooksPersonal);
+    if(foundBook){
+        console.log(BooksPersonal);
+      BooksPersonal.push(foundBook);
+      localStorage.setItem('addedBooks', JSON.stringify(BooksPersonal));
+    }
+    $("#addModal").hide();
+});
 
 $("#cancelAddBtn").click(function(){
     $("#addModal").hide();

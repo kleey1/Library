@@ -25,14 +25,14 @@
             background-size: cover;
             background-position: right;
         }
-        #ordersTbl th {
+        #booksTbl th {
             color: rgb(198, 67, 67);
         }
-        #ordersTbl td {
+        #booksTbl td {
             background-color: rgba(164, 145, 96, 0.847);
             color: rgb(255, 240, 240);
         }
-        table#ordersTbl{
+        table#booksTbl{
             border-collapse: collapse;
             width: 100%;
             margin-top: 20px;
@@ -99,6 +99,68 @@ nav img{
             border-radius: 3px;
             cursor: pointer;
         }
+
+
+
+        .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    margin: 6% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  /* Remove pop up */
+  #remove-fullname {
+    color: red;
+  }
+  
+  button#cancel-btn {
+    background-color: #d7e0ea;
+    color: white;
+  }
+  
+  button#remove-btn {
+    background-color: #FF0000;
+    color: white;
+  }
+  
+  /* Error styles */
+  .error {
+    color: red;
+    font-size: 12px;
+  }
         
     </style>
 </head>
@@ -115,13 +177,15 @@ nav img{
         </ul>
     </nav>
 
-    <table id="ordersTbl">
+    <table id="booksTbl">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Book Name</th>
                 <th>Author</th>
-                <th>Description</th>
-                <th>Actions</th>
+                <th>Category</th>
+                <th>Cover</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -129,82 +193,18 @@ nav img{
         </tbody>
     </table>
 
-    <!-- Button to add more books -->
-    <button id="addBtn">Add Book</button>
+    <div id="removeModal" class="modal">
+        <div class="modal-content">
+            <h2 id="remove-title"></h2>
+            <p>Are you sure you want to remove this book?</p>
+            <p>
+                <button type="button" id="cancelRemoveBtn">Cancel</button>
+                <button type="button" id="ConfirmBtn">Confirm</button>
+            </p>
+        </div>
+    </div>
 
-    <script type="module">
-        // Function to add a new row to the table
-        function addBookRow() {
-            var table = document.getElementById("ordersTbl").getElementsByTagName('tbody')[0];
-            var newRow = table.insertRow(table.rows.length);
-    
-            var cell1 = newRow.insertCell(0);
-            var cell2 = newRow.insertCell(1);
-            var cell3 = newRow.insertCell(2);
-            var cell4 = newRow.insertCell(3);
-    
-            var bookName = prompt("Enter the book name:");
-            var author = prompt("Enter the author:");
-            var description = prompt("Enter the description:");
-    
-            cell1.innerHTML = bookName || "New Book";
-            cell2.innerHTML = author || "New Author";
-            cell3.innerHTML = description || "New Description";
-    
-            /*var editBtn = document.createElement("button");
-            editBtn.innerHTML = "Edit";
-            editBtn.classList.add("editBtn");
-            cell4.appendChild(editBtn);*/
-    
-            var removeBtn = document.createElement("button");
-            removeBtn.innerHTML = "Remove";
-            removeBtn.classList.add("removeBtn");
-            cell4.appendChild(removeBtn);
-        }
-    
-        // Event listener for the "Add Book" button
-        document.getElementById("addBtn").addEventListener("click", addBookRow);
-    
-        // Event delegation for dynamically added buttons
-        document.getElementById("ordersTbl").addEventListener("click", function (event) {
-            var target = event.target;
-    
-            // Check if the clicked element is an "Edit" button
-           /* if (target.classList.contains("editBtn")) {
-                // Get the index of the clicked button's cell
-                var columnIndex = target.parentElement.cellIndex;
-    
-                // Ask the user which information to change
-                var changeType = prompt("Enter 'book' to change the book name, 'author' to change the author, or 'description' to change the description:");
-    
-                if (changeType !== null) {
-                    var newContent = prompt("Enter the new content:");
-    
-                    if (newContent !== null) {
-                        switch (changeType.toLowerCase()) {
-                            case 'book':
-                                target.closest('tr').cells[0].innerHTML = newContent;
-                                break;
-                            case 'author':
-                                target.closest('tr').cells[1].innerHTML = newContent;
-                                break;
-                            case 'description':
-                                target.closest('tr').cells[2].innerHTML = newContent;
-                                break;
-                            default:
-                                alert("Invalid input. Please enter 'book', 'author', or 'description'.");
-                        }
-                    }
-                }
-            }*/
-    
-            // Check if the clicked element is a "Remove" button
-            if (target.classList.contains("removeBtn")) {
-                // Add functionality to remove the book
-                // For example, you can remove the entire row
-                target.closest('tr').remove();
-            }
-        });
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="\assets\scripts\personalLibrary.js"></script>
     
 </html>
