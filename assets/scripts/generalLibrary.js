@@ -1,6 +1,4 @@
 
-
-
 class Book{
     constructor(id, image, title, author, category){
 
@@ -46,22 +44,44 @@ function populateBooks(){
 
 populateBooks();
 
+let selectedBookId ;
 
+// show modal function 
 $("#booksdiv").on('click', "#AddBtn", function(){
-    const bookId = $(this).data('book-id');
-    const book = books.find(n => n.id === bookId);
+    const bookId = $(this).data('book-id'); // gets the books ID 
+    const book = books.find(n => n.id === bookId); // find the book with the ID we want
     // editOrder(order);
 
     console.log(`Selected book = ${book.title}`);
 
     $("#add-book").text(book.title);
+    selectedBookId = book.id;
 
     $("#addModal").show();
+
 })
 
 $("#cancelAddBtn").click(function(){
     $("#addModal").hide();
+
 });
 
+$("#Confirm").click (function (event){
 
+    event.stopPropagation();
+    const bookId = selectedBookId;
+
+    const book = books.find(n => n.id === bookId);
+
+    // adding to local storage the book choosen
+    
+       let BookInStorage = JSON.stringify(book);
+       localStorage.setItem("TheBook", BookInStorage);
+       $("#addModal").hide();
+}) ;
+
+function AddingToTheTable () {
+    let AddingBook = JSON.parse(localStorage.getItem("TheBook")) 
+
+}
 

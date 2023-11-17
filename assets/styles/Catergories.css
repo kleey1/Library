@@ -48,17 +48,16 @@ nav img{
     justify-content: center;
 
 }
-#Fantasy{
+.books:hover {
     background-color: bisque;
+
 }
 #searchBox{
     width: 400px;
     height: 150px;
-    background-color: rgb(180, 141, 82);
+    background-color: rgba(180, 141, 82, 0.073);
     position: absolute;
     right: 100px;
     top: 100px;
 }
-
-
 
