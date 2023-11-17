@@ -123,11 +123,6 @@ button:hover {
   cursor: pointer;
 }
 
-/* Remove pop up */
-#remove-fullname {
-  color: red;
-}
-
 button#cancel-btn {
   background-color: #d7e0ea;
   color: white;
