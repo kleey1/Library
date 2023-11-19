@@ -1,8 +1,14 @@
 .wrapper {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 5px;
+    gap: 2px;
     grid-auto-rows: minmax(100px, auto);
+    padding-left: 10px;
+  }
+
+  #title{
+    font-size: 18px;
+    font-weight: bold;
   }
 
   img#image{
@@ -84,27 +90,26 @@ button:hover {
 }
 
 #categories{
-  padding-top: 15px;
-  padding-bottom: 50px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: blanchedalmond;
+  border: 1px blanchedalmond;
+  border-radius: 8px;
+  background-position: 90px;
+  align-items: center;
 }
-#categories ul{
-  list-style-type:none;
-}
-#categories p{
-  color:black;
-  font-family:'Times New Roman', Times, serif;
-  font-size: 20px;
-  font-weight:bold;
-}
+
 #categories a {
   color:black;
   font-family:'Times New Roman', Times, serif;
   font-size: 15px;
   font-weight:500;
+  padding-left: 30px;
 }
-#categories li {
-  padding-top: 10px;
+#categories h3{
+  padding-left: 30px;
 }
+
 #categories a:hover{
   color:rgba(165, 42, 42, 0.658);
   text-decoration:underline;
@@ -156,17 +161,9 @@ button#cancel-btn {
   color: white;
 }
 
-button#Add-btn {
-  background-color: #FF0000;
-  color: white;
-}
-
-/* Error styles */
-.error {
-  color: red;
-  font-size: 12px;
-}
 
 #alreadyAdded{
   color:blue;
+  font-size: 18;
+  font-weight: bold;
 }

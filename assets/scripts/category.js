@@ -4,7 +4,7 @@ var categorySelected = JSON.parse(localStorage.getItem('Category')) || [];
 
 function populateBooks(){
 
-    $('#SelectedCategory').html(`You selected: ${categorySelected}`);
+    $('#SelectedCategory').html(`You selected:&nbsp&nbsp ${categorySelected}`);
     console.log(`Selected category: ${categorySelected}`);
 
     $.each(existingBooks, function(index, book){
