@@ -8,11 +8,9 @@ function validate(event){
     var validated = true;
     console.log('isValidated [initial] = ', validated);
 
-    const storedAccounts = JSON.parse(localStorage.getItem('Accounts')) || [];
-
     class Account{
 
-        constructor(id, name, email, password){
+        constructor(id, username, email, password){
 
             if(arguments.length != 4)
             {
@@ -36,6 +34,7 @@ function validate(event){
     }
 
     //if account already exists in local storage, Login
+    const storedAccounts = JSON.parse(localStorage.getItem('Accounts')) || [];
     const foundAccount = storedAccounts.find(account => account.username === username);
     if (foundAccount){
         
@@ -80,6 +79,10 @@ function handleSubmit(Name, Email, Password){
     var existingAccounts = JSON.parse(localStorage.getItem('Accounts')) || [];
     existingAccounts.push(newAccount);
     localStorage.setItem('Accounts', JSON.stringify(existingAccounts));
+
+    var justLogged = JSON.parse(localStorage.getItem('LoggedNow')) || [];
+    justLogged.push(newAccount);
+    localStorage.setItem('LoggedNow', JSON.stringify(justLogged));
 
     alert('Account added to localstorage');
 }

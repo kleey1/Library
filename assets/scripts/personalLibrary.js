@@ -1,5 +1,7 @@
 const booksTableBody = $("#booksTbl tbody");
 booksTableBody.empty();
+
+//Array contains books stored for Personal Library
 var BooksToAdd = JSON.parse(localStorage.getItem('addedBooks')) || [];
 
 
@@ -31,12 +33,13 @@ populate();
 
 
 
-
 $(booksTableBody).on('click', "#removeBtn", function(){
     const bookId = $(this).data('book-id');
     const book = BooksToAdd.find(n => n.id === bookId);
-    // editOrder(order);
 
+    console.log(`Selected book: ${book.title}`)
+
+    localStorage.removeItem('bookToBeRemovedId');
     localStorage.setItem('bookToBeRemovedId', bookId);
 
 
@@ -55,22 +58,22 @@ $("#cancelRemoveBtn").click(function(){
 
 $("#confirmBtn").click(function(){
 
-    //1. Get order id of the item to be removed
+    // Get id of book to be removed
     var bookId = localStorage.getItem('bookToBeRemovedId');
 
-    console.log('bookId from localstorage = ', bookId);
+    //console.log('bookId from localstorage = ', bookId);
 
-    //2. Get from localstorage 
+    // Find id in Personal Library book array
     const index = BooksToAdd.findIndex(book => book.id == bookId);
 
-    console.log('all books = ', BooksToAdd);
-    console.log('index == ', index);
+    //console.log('all books = ', BooksToAdd);
+    //console.log('index == ', index);
 
 
     if(index !== -1){
         BooksToAdd.splice(index,1);
-
-        localStorage.setItem('addedBooks', JSON.stringify(BooksToAdd))
+        localStorage.setItem('addedBooks', JSON.stringify(BooksToAdd));
+        localStorage.removeItem('bookToBeRemovedId');
     } else {
         console.log('Book not found')
     }
