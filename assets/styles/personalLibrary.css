@@ -136,3 +136,10 @@ color: black;
 text-decoration: none;
 cursor: pointer;
 }
+#DirayOfTheKid{
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    right: 0px;
+    bottom: 5px;
+}
