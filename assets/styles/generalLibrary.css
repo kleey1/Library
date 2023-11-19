@@ -16,7 +16,6 @@
     box-shadow: 0 30px 30px 0 rgba(0,0,0,0.50), 0 30px 80px 0 rgba(0,0,0,0.19);
   }
 
-
   .parent {
     margin: 1rem;
     text-align: left;
@@ -31,6 +30,7 @@
     font-weight:540;
   }
   div#description{
+    padding-top: 20px;
     padding-left: 5%;
   }
 
@@ -38,6 +38,8 @@
     background-color: rgba(218, 187, 149, 0.822);
   }
   nav {
+    position: sticky;
+    top: 1px;
     height: 90px;
     background-color: rgba(77, 45, 6, 0.799);
     color: rgb(255, 255, 255);
@@ -81,7 +83,33 @@ button:hover {
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
-
+#categories{
+  padding-top: 15px;
+  padding-bottom: 50px;
+}
+#categories ul{
+  list-style-type:none;
+}
+#categories p{
+  color:black;
+  font-family:'Times New Roman', Times, serif;
+  font-size: 20px;
+  font-weight:bold;
+}
+#categories a {
+  color:black;
+  font-family:'Times New Roman', Times, serif;
+  font-size: 15px;
+  font-weight:500;
+}
+#categories li {
+  padding-top: 10px;
+}
+#categories a:hover{
+  color:rgba(165, 42, 42, 0.658);
+  text-decoration:underline;
+  cursor: pointer;
+}
 
 
 .header-container {
@@ -137,4 +165,8 @@ button#Add-btn {
 .error {
   color: red;
   font-size: 12px;
+}
+
+#alreadyAdded{
+  color:blue;
 }

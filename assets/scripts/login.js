@@ -59,6 +59,9 @@ function handleSubmit(Name, Password){
     }
 
     console.log('newLogin Object = ', newLogin);
+    var justLogged = JSON.parse(localStorage.getItem('LoggedNow')) || [];
+    justLogged.push(newLogin);
+    localStorage.setItem('LoggedNow', JSON.stringify(justLogged));
 
 }
 
